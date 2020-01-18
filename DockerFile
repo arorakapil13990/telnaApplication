@@ -1,0 +1,4 @@
+FROM openjdk:11-slim as runtime
+EXPOSE 8080
+ADD target/telnaApplication.jar telnaApplication.jar
+ENTRYPOINT ["java","-jar","telnaApplication.jar"]
