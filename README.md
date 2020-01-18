@@ -57,7 +57,7 @@ Following technologies, tools and frameworks are used to develop a system with e
 <li>Persistence Framework: Spring JPA </li>
 <li>Application Documentation: Swagger</li>
 <li>Database: H2</li>
-<li>Unit Testing: Junit, Mockito</li>
+<li>Unit Testing: Junit 5, Mockito</li>
 <li>Integration Testing: Spring Test</li>
 <li>Coverage Tool: Jacoco</li>
 <li>Docker</li>
