@@ -1,12 +1,10 @@
 package com.task.telna.service;
 
-import com.task.telna.constants.Constants;
 import com.task.telna.entity.Usage;
 import com.task.telna.entity.User;
 import com.task.telna.enums.UsageType;
 import com.task.telna.exception.UserNotFoundException;
 import com.task.telna.repository.UsageRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -64,9 +62,9 @@ public class UsageServiceTest {
         when(repository.save(usage)).thenReturn(usage);
         when(userService.findByUserId(1L)).thenReturn(user);
 
-        String successMessage = usageService.saveUsageInformation(usage);
+        Usage actualUsage = usageService.saveUsage(usage);
 
-        assertEquals(Constants.USAGE_SAVED_SUCCESSFULLY, successMessage);
+        assertEquals(usage.getUsageType(), actualUsage.getUsageType());
 
     }
 
@@ -79,7 +77,7 @@ public class UsageServiceTest {
         user.setPhoneNumber("981-124-2222");
         Usage usage = new Usage(UsageType.DATA, new Date(), user);
         when(userService.findByUserId(1L)).thenThrow(new UserNotFoundException(1L));
-        assertThrows(UserNotFoundException.class, () -> usageService.saveUsageInformation(usage));
+        assertThrows(UserNotFoundException.class, () -> usageService.saveUsage(usage));
 
     }
 

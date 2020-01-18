@@ -1,7 +1,7 @@
 package com.task.telna.integration;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.task.telna.constants.Constants;
 import com.task.telna.entity.Usage;
 import com.task.telna.entity.User;
 import com.task.telna.enums.UsageType;
@@ -12,23 +12,21 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class UserControllerIntegrationTest {
@@ -39,7 +37,6 @@ public class UserControllerIntegrationTest {
 
 
     @Test
-    @Order(1)
     public void testSaveUser() throws Exception {
         User user = new User();
         user.setName("newtest");
@@ -54,7 +51,6 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @Order(2)
     public void testSaveUsersUsage() throws Exception {
         User user = new User();
         user.setUserId(1);
@@ -62,17 +58,15 @@ public class UserControllerIntegrationTest {
         user.setEmail("newtest@gmail.com");
         user.setPhoneNumber("981-124-2222");
         Usage usage = new Usage(UsageType.DATA, new Date(), user);
-        MvcResult usageResult = mvc
-                .perform(MockMvcRequestBuilders.post("/usage").content(mapper.writeValueAsString(usage))
-                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/usage").content(mapper.writeValueAsString(usage))
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(Constants.USAGE_SAVED_SUCCESSFULLY, usageResult.getResponse().getContentAsString());
+        assertEquals(usage.getUsageType(), mapper.readValue(result.getResponse().getContentAsString(), Usage.class).getUsageType());
 
     }
 
     @Test
-    @Order(3)
     public void testGetAllUsageForAUser() throws Exception {
         User user = new User();
         user.setUserId(1);
@@ -80,11 +74,12 @@ public class UserControllerIntegrationTest {
         user.setEmail("newtest@gmail.com");
         user.setPhoneNumber("981-124-2222");
         Usage usage = new Usage(UsageType.DATA, new Date(), user);
-        mvc.perform(MockMvcRequestBuilders.post("/usage/history").content(mapper.writeValueAsString(usage))
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.post("/usage/history").content(mapper.writeValueAsString(usage))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1))).andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].usageType", is(UsageType.DATA.toString())));
+                .andExpect(jsonPath("$", hasSize(1))).andExpect(status().isOk()).andReturn();
 
+        List<Usage> usages = mapper.readValue(result.getResponse().getContentAsString(), new TypeReference<List<Usage>>() {});
+        assertEquals(usage.getUsageType(), usages.get(0).getUsageType());
     }
 
 }

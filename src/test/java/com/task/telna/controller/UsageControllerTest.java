@@ -1,7 +1,6 @@
 package com.task.telna.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.task.telna.constants.Constants;
 import com.task.telna.entity.Usage;
 import com.task.telna.entity.User;
 import com.task.telna.enums.UsageType;
@@ -45,23 +44,22 @@ public class UsageControllerTest {
 
 
     @Test
-    public void testSaveUsageInformation() throws Exception {
+    public void testSaveUsage() throws Exception {
         User user = new User();
         user.setUserId(1);
         user.setName("test");
         user.setEmail("test@gmail.com");
         user.setPhoneNumber("981-124-2222");
 
-        Usage request = new Usage(UsageType.DATA, new Date(), user);
+        Usage usage = new Usage(UsageType.DATA, new Date(), user);
         when(userService.findByUserId(1L)).thenReturn(user);
-        when(usageService.saveUsageInformation(any(Usage.class))).thenReturn(Constants.USAGE_SAVED_SUCCESSFULLY);
+        when(usageService.saveUsage(any(Usage.class))).thenReturn(usage);
 
-        MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders.post("/usage").content(mapper.writeValueAsString(request))
-                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/usage").content(mapper.writeValueAsString(usage))
+                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andReturn();
 
-        assertEquals(Constants.USAGE_SAVED_SUCCESSFULLY, result.getResponse().getContentAsString());
+        assertEquals(usage.getUsageType(), mapper.readValue(result.getResponse().getContentAsString(), Usage.class).getUsageType());
 
     }
 

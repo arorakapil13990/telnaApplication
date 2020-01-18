@@ -21,10 +21,9 @@ public class UsageService {
     @Autowired
     UserService userService;
 
-    public String saveUsageInformation(Usage usage) throws UserNotFoundException {
+    public Usage saveUsage(Usage usage) throws UserNotFoundException {
         usage.setUser(userService.findByUserId(usage.getUser().getUserId()));
-        usageRepository.save(usage);
-        return Constants.USAGE_SAVED_SUCCESSFULLY;
+        return usageRepository.save(usage);
     }
 
     public List<Usage> getAllUsageForAUser(Usage usage) throws ParseException, UserNotFoundException {

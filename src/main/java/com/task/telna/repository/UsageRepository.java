@@ -13,5 +13,5 @@ import java.util.List;
 public interface UsageRepository extends JpaRepository<Usage, Long> {
 
     List<Usage> findByUsageTypeAndUserAndStartDateBetween(UsageType usageType, User user, Date startDate,
-                                                          Date startdateEnd);
+                                                          Date endDate);
 }

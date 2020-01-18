@@ -28,7 +28,7 @@ public class UsageController {
     @PostMapping
     @ApiOperation(value = "Usage information is saved successfully .")
     public ResponseEntity<?> saveUsageInformation(@Valid @RequestBody Usage usage) throws UserNotFoundException {
-        return new ResponseEntity<>(usageService.saveUsageInformation(usage), HttpStatus.OK);
+        return new ResponseEntity<>(usageService.saveUsage(usage), HttpStatus.OK);
     }
 
     @PostMapping("/history")
