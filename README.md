@@ -35,7 +35,7 @@ time.
 Following is the url, hitting which would return a string message as a response, stating the success or error message accordingly.</li>
 <h4>POST : http://localhost:8080/usage</h4>
 Request body is in JSON format with following parameters with defined validations :
-<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
+<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "DATA",<br/>"startDate": "2018-05-20"<br/>}</p>
  </li>
 <li>Third end point of type POST, is exposed to retrieve	all	information	about	 the	 user’s	 usage	 history based		
 on	a	time	range.	
@@ -43,24 +43,24 @@ Following is the url, hitting which would return a response in JSON format conta
 on	a	time	range.</li>
 <h4>POST : http://localhost:8080/usage/history</h4>
 Request body is in JSON format with following parameters with defined validations :
-<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
+<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "DATA",<br/>"startDate": "2018-05-20"<br/>}</p>
 Response : 
-<p>[<br>{<br/>"usageId": 3,<br/>    "usageType": "data",<br/>"startDate": "2018-05-20",<br/>"user": {<br>"userId": 1,<br>"name": "testUser",<br/> "email": "test_user@gmail.com",<br/>"phoneNumber": "998-124-2222",<br/>"country": "India"<br>}<br>}<br>]</p>
+<p>[<br>{<br/>"usageId": 3,<br/>    "usageType": "DATA",<br/>"startDate": "2018-05-20",<br/>"user": {<br>"userId": 1,<br>"name": "testUser",<br/> "email": "test_user@gmail.com",<br/>"phoneNumber": "998-124-2222",<br/>"country": "India"<br>}<br>}<br>]</p>
 </li>
 </ol>
 <h3>Technologies and Frameworks used</h3>
 Following technologies, tools and frameworks are used to develop a system with end to end flow of collecting user's information, it's usage types, thus assuring a good code quality standards.<br>
 <ul>
-<li>Language: Java 8</li>
+<li>Language: Java 11</li>
 <li>Build and Packaging: Maven</li>
 <li>Application Framework: Spring Boot</li>
-<li>Persistence Framework: Spring JPA and Hibernate</li>
+<li>Persistence Framework: Spring JPA </li>
 <li>Application Documentation: Swagger</li>
-<li>Database Change Management: Flyway</li>
 <li>Database: H2</li>
 <li>Unit Testing: Junit, Mockito</li>
 <li>Integration Testing: Spring Test</li>
 <li>Coverage Tool: Jacoco</li>
+<li>Docker</li>
 </ul>
 
 <h3>In memory database</h3>
@@ -80,25 +80,19 @@ Tables : User, Usage
 
 <h3>Running test cases and checking coverage</h3>
 <ul>
-<li>Run following command to run unit and integration test cases <b>./mvnw clean test</b></li>
-<li>Run following command to generate test coverage in html format <b>./mvnw clean test</b></li>
+<li>Run following command to run unit and integration test cases <b> mvn clean test</b></li>
+<li>Run following command to generate test coverage in html format <b> mvn clean test</b></li>
+<li>Run following command to create docker image <b>docker build -t telna/telnaApp .</b></li>
+<li>Run following command to run docker image <b>docker run -p 8080:8080 telna/telnaApp</b></li>
 </ul>
 
-<h3>Layers and packaging of application</h3>
+<h3>Packaging</h3>
 <ul>
-<li><b>config</b> — contains appropriate configuration required application wide</li>
-<li><b>validation</b> — contains validation for rest endpoints</li>
-<li><b>constants</b> — contains all constants used application wide</li>
 <li><b>entity</b> — to hold our entities</li>
 <li><b>repository</b> — to communicate with the database</li>
 <li><b>service</b> — to hold our business logic</li>
 <li><b>controller</b> — to listen to the client</li>
-<li><b>request</b> — to create required request object to be transfered</li>
-<li><b>enums</b> — to define fixed set of constants to be used application wide</li>
-<li><b>resources/</b> - contains all the static resources and property files.</li>
-<li><b>src/main/resources/application.properties</b> - contains application-wide properties. Spring reads the properties defined in this file to configure your application. We can define server’s default port, server’s context path, database URLs etc, in this file.</li>
-<li><b>test/</b> - contains unit and integration tests</li>
-<li><b>src/test/resources/application-test.properties</b> - contains test specific application properties</li>
+</ul>
 
 
 
