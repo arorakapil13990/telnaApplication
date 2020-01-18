@@ -12,13 +12,12 @@ A coding assignment by Telna, in which a system	 is designed to	collect users in
 For building and running the application you would require:<br>
 
 <ul>
-<li>JDK 1.8</li>
+<li>JDK 11</li>
 <li>Maven</li>
-<li>Java IDE (namely Eclipse,Intellij,STS etc.)</li>
 </ul>
 
 <h3>Running the application</h3>
-Run following command in to build and run the application <b>./mvnw clean spring-boot:run</b>
+Run following command in to build and run the application <b>mvn clean spring-boot:run</b>
 
 <h3>Documentation</h3>
 <b>Swagger</b> software is used to have a detailed view of all rest endpoints. It is configured within the springboot java application to automate the generation of rest endpoints details.
@@ -34,17 +33,17 @@ Request body is in JSON format with following parameters with defined validation
 <li>Second end point of type POST, is exposed to store information	about	the service	a	user used	at a particular
 time.	
 Following is the url, hitting which would return a string message as a response, stating the success or error message accordingly.</li>
-<h4>POST : http://localhost:8080/user/usage</h4>
+<h4>POST : http://localhost:8080/usage</h4>
 Request body is in JSON format with following parameters with defined validations :
-<p>{<br/>"userId": 1,<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
+<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
  </li>
 <li>Third end point of type POST, is exposed to retrieve	all	information	about	 the	 user’s	 usage	 history based		
 on	a	time	range.	
 Following is the url, hitting which would return a response in JSON format containing all	information	about	 the	 user’s	 usage	 history based		
 on	a	time	range.</li>
-<h4>POST : http://localhost:8080/user/usage/history</h4>
+<h4>POST : http://localhost:8080/usage/history</h4>
 Request body is in JSON format with following parameters with defined validations :
-<p>{<br/>"userId": 1,<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
+<p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "data",<br/>"startDate": "2018-05-20"<br/>}</p>
 Response : 
 <p>[<br>{<br/>"usageId": 3,<br/>    "usageType": "data",<br/>"startDate": "2018-05-20",<br/>"user": {<br>"userId": 1,<br>"name": "testUser",<br/> "email": "test_user@gmail.com",<br/>"phoneNumber": "998-124-2222",<br/>"country": "India"<br>}<br>}<br>]</p>
 </li>
