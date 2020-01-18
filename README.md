@@ -13,11 +13,10 @@ For building and running the application you would require:<br>
 
 <ul>
 <li>JDK 11</li>
-<li>Maven</li>
 </ul>
 
 <h3>Running the application</h3>
-Run following command in to build and run the application <b>mvn clean spring-boot:run</b>
+Run following command in to build and run the application <b> ./mvnw clean spring-boot:run</b>
 
 <h3>Documentation</h3>
 <b>Swagger</b> software is used to have a detailed view of all rest endpoints. It is configured within the springboot java application to automate the generation of rest endpoints details.
@@ -80,8 +79,8 @@ Tables : User, Usage
 
 <h3>Running test cases and checking coverage</h3>
 <ul>
-<li>Run following command to run unit and integration test cases <b> mvn clean test</b></li>
-<li>Run following command to generate test coverage in html format <b> mvn clean test</b></li>
+<li>Run following command to run unit and integration test cases <b> ./mvnw clean test</b></li>
+<li>Run following command to generate test coverage in html format <b> ./mvnw clean test</b></li>
 <li>Run following command to create docker image <b>docker build -t telna/telnaApp .</b></li>
 <li>Run following command to run docker image <b>docker run -p 8080:8080 telna/telnaApp</b></li>
 </ul>
