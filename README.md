@@ -45,7 +45,7 @@ on	a	time	range.</li>
 Request body is in JSON format with following parameters with defined validations :
 <p>{<br/>"user":{<br/>"userId": 1<br/>},<br/> "usageType": "DATA",<br/>"startDate": "2018-05-20"<br/>}</p>
 Response : 
-<p>[<br>{<br/>"usageId": 3,<br/>    "usageType": "DATA",<br/>"startDate": "2018-05-20",<br/>"user": {<br>"userId": 1,<br>"name": "testUser",<br/> "email": "test_user@gmail.com",<br/>"phoneNumber": "998-124-2222",<br/>"country": "India"<br>}<br>}<br>]</p>
+<p>[<br>{<br/>"usageId": 1,<br/>    "usageType": "DATA",<br/>"startDate": "2018-05-20",<br/>"user": {<br>"userId": 1,<br>"name": "testUser",<br/> "email": "test_user@gmail.com",<br/>"phoneNumber": "998-124-2222",<br/>"country": "India"<br>}<br>}<br>]</p>
 </li>
 </ol>
 <h3>Technologies and Frameworks used</h3>
@@ -72,7 +72,7 @@ Tables : User, Usage
 
 <h3>Test cases</h3>
 <ul>
- Application has following test cases more than 80% of application
+ Application has following test cases
   <li>Unit test cases</li>
   <li>Controller test cases</li>
   <li>Integration test cases</li>
